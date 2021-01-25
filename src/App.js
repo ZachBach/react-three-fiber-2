@@ -1,17 +1,18 @@
 import React from 'react';
+import { Canvas } from 'react-three-fiber';
 import './App.scss';
+import SpinningMesh from './components/SpinningMesh';
 
 // import canvas from fiber
-import { Canvas, useFrame } from 'react-three-fiber';
 
 function App() {
   return (
     <>
-      <Canvas>
-        <mesh>
-          <boxBufferGeometry attach='geometry' args={[1, 1, 1]} />
-          <meshStandardMaterial attach='material' />
-        </mesh>
+      <Canvas colorManagement camera={{ position: [-5, 2, 10], fov: 60 }}>
+        <ambientLight intensity={0.3} />
+        <SpinningMesh position={[0, 1, 0]} args={[3, 2, 1]} />
+        <SpinningMesh position={[-2, 1, -5]} />
+        <SpinningMesh position={[5, 1, -2]} />
       </Canvas>
     </>
   );
@@ -52,3 +53,22 @@ export default App;
 // render priority then they are ordered highest priority last, similar to z-index.
 // Frames are managed, three fiber will remove them automatically when the component that
 // holds them is unmounted.
+
+// next we want to use the useRef(null) hook with an argument value of null.
+// as well as the useFrame() hook talked about above.
+// grabbing that mesh and we want to adjust the rotation of x which is set to the rotation
+// of y and then for each frame were adding a frame of 0.01.
+// There is an issue with useFrame is we cannot use it withing the app component
+//  or the component being displayed. We will need to extract this mesh out of app into
+// it's own component using useFrame and then importing it into app/component that is being
+// rendered out to the page.
+
+// next lets add some ambient light and we can do this in the app component as well
+// as the intensity of the light and it globaly illumiating all of the objects in the scence equally
+// it does not cast shadows no matter how intense the light is.
+
+// next we can add some color to our box and we do this by adding a colorManagement attr to the canvas
+
+// next we can change the camera position by adding a camera attr to the canvas as well.
+// followed by the fov(field of view) how zoomed in or out we are. position is the same as boxBufferGeomety
+// using [x,y,z] for args
