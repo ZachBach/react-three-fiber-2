@@ -10,9 +10,23 @@ function App() {
     <>
       <Canvas colorManagement camera={{ position: [-5, 2, 10], fov: 60 }}>
         <ambientLight intensity={0.3} />
-        <SpinningMesh position={[0, 1, 0]} args={[3, 2, 1]} />
-        <SpinningMesh position={[-2, 1, -5]} />
-        <SpinningMesh position={[5, 1, -2]} />
+        <directionalLight
+          position={[0, 10, 0]}
+          intensity={1.5}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-far={50}
+          shadow-camera-left={-10}
+          shadow-camera-right={10}
+          shadow-camera-top={50}
+          shadow-camera-bottom={-10}
+        />
+        <pointLight position={[-10, 0, -20]} intensity={0.5} />
+        <pointLight position={[0, -10, 0]} intensity={1.5} />
+        <pointLight position={[0, 1, 0]} intensity={1.5} />
+        <SpinningMesh position={[0, 1, 0]} args={[3, 2, 1]} color='darkgrey' />
+        <SpinningMesh position={[-2, 1, -5]} color='darkgreen' />
+        <SpinningMesh position={[5, 1, -2]} color='darkgreen' />
       </Canvas>
     </>
   );
@@ -72,3 +86,12 @@ export default App;
 // next we can change the camera position by adding a camera attr to the canvas as well.
 // followed by the fov(field of view) how zoomed in or out we are. position is the same as boxBufferGeomety
 // using [x,y,z] for args
+
+// Setting up lighting
+// first we want to set up pointLight. By setting up the position as well as the intensity
+// Again this follows the same as args for the bufferGeometry method when settuing up the posistions.
+// as x,y,z.
+
+// After setting up our pointlights we then want to create a directional light.
+// Very similar to the [ 0 , -10 , 0 ] we have before. We want direction light on top.
+// So we have to change the middle value that is for the y axis to posivite 10!
