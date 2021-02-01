@@ -95,3 +95,6 @@ export default App;
 // After setting up our pointlights we then want to create a directional light.
 // Very similar to the [ 0 , -10 , 0 ] we have before. We want direction light on top.
 // So we have to change the middle value that is for the y axis to posivite 10!
+
+// Next we want to catch a shadow at the bottom we cannot cast a shadow however without a
+// floor or a plane.
