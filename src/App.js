@@ -2,15 +2,20 @@ import React from 'react';
 import { Canvas } from 'react-three-fiber';
 import './App.scss';
 import SpinningMesh from './components/SpinningMesh';
-
+import { softShadows } from 'drei';
 // import canvas from fiber
+softShadows();
 
 function App() {
   return (
     <>
-      <Canvas colorManagement camera={{ position: [-5, 2, 10], fov: 60 }}>
+      <Canvas
+        shadowMap
+        colorManagement
+        camera={{ position: [-5, 2, 10], fov: 60 }}>
         <ambientLight intensity={0.3} />
         <directionalLight
+          castShadow
           position={[0, 10, 0]}
           intensity={1.5}
           shadow-mapSize-width={1024}
@@ -26,9 +31,15 @@ function App() {
         <pointLight position={[0, 1, 0]} intensity={1.5} />
 
         <group>
-          <mesh>
+          <mesh
+            receiveShadow
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, -3, 0]}>
             <planeBufferGeometry attach='geometry' args={[100, 100]} />
-            <meshStandardMaterial attach='material' color={'green'} />
+
+            <shadowMaterial attach='material' opacity={0.3} />
+            {/* this will need to cast a shadow */}
+            {/*<meshStandardMaterial attach='material' color={'black'} /> Cool black floor plane.*/}
           </mesh>
         </group>
 
@@ -108,3 +119,15 @@ export default App;
 // floor or a plane by creating a new group. Followed by the mesh first and inside of the mesh.
 // use a planebufferGeometry and attach geometetry to it as well as two args.
 // We also have to provide it a material or plane/floor as well to cast a shadow material.
+// To cast a shadow we will need to add a rotation to the mesh material {x, y , z} again
+
+// Now that we understand that we need a plane/floor to cast a shadow off of next we will create the shadowMaterial
+// After using the component attach a material. However nothing will take effect yet until we pass in shadow map
+// to our canvas. As well as a castShadow prop to the main mesh component. After we add the prop the main mesh
+// we need to then set it on our directionLight since this is casting a shadow after all! Finally we need to go
+// back to the plane that will recieve the shadow. By adding the receiveShadow to the plane.
+// I like to think of the light bouncing off of the different materials/planes if that way also helps.
+
+//  After applying the receive shadow we ca tell that the pixels as well as shadow is a little distorted or "Harsh"
+//  we can change the alpha values to correct this.(opacity) no shadow is 100% black.
+// We can also import softShadows from drei to soften our shadows.
