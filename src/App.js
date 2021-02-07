@@ -24,6 +24,14 @@ function App() {
         <pointLight position={[-10, 0, -20]} intensity={0.5} />
         <pointLight position={[0, -10, 0]} intensity={1.5} />
         <pointLight position={[0, 1, 0]} intensity={1.5} />
+
+        <group>
+          <mesh>
+            <planeBufferGeometry attach='geometry' args={[100, 100]} />
+            <meshStandardMaterial attach='material' color={'green'} />
+          </mesh>
+        </group>
+
         <SpinningMesh position={[0, 1, 0]} args={[3, 2, 1]} color='darkgrey' />
         <SpinningMesh position={[-2, 1, -5]} color='darkgreen' />
         <SpinningMesh position={[5, 1, -2]} color='darkgreen' />
@@ -97,4 +105,6 @@ export default App;
 // So we have to change the middle value that is for the y axis to posivite 10!
 
 // Next we want to catch a shadow at the bottom we cannot cast a shadow however without a
-// floor or a plane.
+// floor or a plane by creating a new group. Followed by the mesh first and inside of the mesh.
+// use a planebufferGeometry and attach geometetry to it as well as two args.
+// We also have to provide it a material or plane/floor as well to cast a shadow material.
