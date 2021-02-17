@@ -43,9 +43,14 @@ function App() {
           </mesh>
         </group>
 
-        <SpinningMesh position={[0, 1, 0]} args={[3, 2, 1]} color='darkgrey' />
-        <SpinningMesh position={[-2, 1, -5]} color='darkgreen' />
-        <SpinningMesh position={[5, 1, -2]} color='darkgreen' />
+        <SpinningMesh
+          position={[0, 1, 0]}
+          args={[3, 2, 1, 4]}
+          color='darkgrey'
+          speed={1}
+        />
+        <SpinningMesh position={[-2, 1, -5]} color='darkgreen' speed={5} />
+        <SpinningMesh position={[5, 1, -2]} color='darkgreen' speed={5} />
       </Canvas>
     </>
   );
